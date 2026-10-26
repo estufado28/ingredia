@@ -3,7 +3,7 @@
    Variables (en Cloudflare > Worker > Settings > Variables):
      GEMINI_KEY  (secreta)  clave de Google AI Studio
      ORIGEN                 dirección de la app, ej: https://tu-usuario.github.io
-     MODELO      (opcional) por defecto: gemini-flash-latest */
+     MODELO      (opcional) por defecto: gemini-3.5-flash-lite */
 
 const MAX_IMAGEN = 1_500_000; // ~1,1 MB en base64
 
@@ -81,7 +81,7 @@ Respondé SOLO con JSON: {"ingredientes": [string]}`;
 }
 
 async function gemini(env, partes) {
-  const modelo = env.MODELO || 'gemini-flash-latest';
+  const modelo = env.MODELO || 'gemini-3.5-flash-lite';
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_KEY },
