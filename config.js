@@ -3,7 +3,7 @@
    Mientras FIREBASE sea null, se entra sin cuenta (versión de prueba) y todo se guarda en el teléfono. */
 const CONFIG = {
   // Dirección del servidor de IA (Cloudflare Worker), sin barra al final. Ej: 'https://ingredia.tu-usuario.workers.dev'
-  SERVIDOR_IA: '',
+  SERVIDOR_IA: 'https://ingredia.estufado28.workers.dev',
 
   // Datos del proyecto de Firebase (se copian de la consola de Firebase). Ej: { apiKey: '...', authDomain: '...', projectId: '...', appId: '...' }
   FIREBASE: null,
