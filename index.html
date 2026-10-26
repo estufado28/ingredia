@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IngredIA</title>
+<meta name="description" content="Recetas livianas con lo que tenés en la cocina.">
+<meta name="theme-color" content="#7A1424">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IngredIA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="iconos/icono-180.png">
+<link rel="icon" href="iconos/icono-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ENTRADA -->
+  <section class="pantalla" id="p-entrada" hidden>
+    <div class="entrada">
+      <div class="stickers" aria-hidden="true">
+        <span class="sticker">Huevos</span>
+        <span class="sticker">Tomate</span>
+        <span class="sticker">Arroz</span>
+        <span class="sticker igual">= receta</span>
+      </div>
+      <h1 class="marca">Ingred<span>IA</span></h1>
+      <p class="bajada">Decime qué tenés a mano y te armo un plato rico, liviano y a tu medida.</p>
+      <div class="relleno"></div>
+      <label class="check" for="chk-edad"><input type="checkbox" id="chk-edad"> Tengo 18 años o más.</label>
+      <button class="btn btn-blanco-sombra" id="btn-entrar" disabled>
+        <span class="g" aria-hidden="true">G</span><span id="txt-entrar">Continuar con Google</span>
+      </button>
+      <p class="legal">Las recetas y calorías son aproximadas y no reemplazan el consejo de un nutricionista o médico. No recomendado en embarazo, lactancia o si tenés alguna condición de salud sin consultar antes.</p>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section class="pantalla" id="p-perfil" hidden>
+    <header class="cabecera">
+      <div class="fila entre">
+        <span class="chico" id="perfil-saludo">Tu perfil</span>
+        <button class="btn-icono" id="perfil-cerrar" aria-label="Volver" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+      </div>
+      <h1>Contame de vos</h1>
+    </header>
+    <form class="cuerpo" id="form-perfil" novalidate>
+      <div class="grupo">
+        <span class="etiqueta">Sexo (para calcular lo que gastás)</span>
+        <div class="segmentado" data-campo="sexo">
+          <button type="button" data-valor="mujer" aria-pressed="false">Mujer</button>
+          <button type="button" data-valor="hombre" aria-pressed="false">Hombre</button>
+        </div>
+      </div>
+      <div class="grilla-3">
+        <label class="campo-num" for="in-edad">Edad<input id="in-edad" type="number" inputmode="numeric" min="18" max="100" placeholder="29"></label>
+        <label class="campo-num" for="in-peso">Peso (kg)<input id="in-peso" type="number" inputmode="decimal" min="35" max="250" placeholder="70"></label>
+        <label class="campo-num" for="in-altura">Altura (cm)<input id="in-altura" type="number" inputmode="numeric" min="120" max="230" placeholder="170"></label>
+      </div>
+      <div class="grupo">
+        <span class="etiqueta">¿Cuánto te movés?</span>
+        <div class="segmentado" data-campo="actividad">
+          <button type="button" data-valor="poco" aria-pressed="false">Poco</button>
+          <button type="button" data-valor="algo" aria-pressed="false">Algo</button>
+          <button type="button" data-valor="mucho" aria-pressed="false">Mucho</button>
+        </div>
+      </div>
+      <div class="grupo">
+        <span class="etiqueta">Déficit</span>
+        <div class="grilla-2 opciones-deficit" data-campo="deficit">
+          <button type="button" data-valor="leve" aria-pressed="false"><b>Leve</b><span>Más tranquilo</span></button>
+          <button type="button" data-valor="moderado" aria-pressed="false"><b>Moderado</b><span>Un poco más rápido</span></button>
+        </div>
+      </div>
+      <div class="tarjeta-objetivo" aria-live="polite">
+        <div><span>Tu objetivo diario</span><b id="perfil-objetivo">—</b></div>
+        <small>Nunca baja de un mínimo saludable</small>
+      </div>
+      <div class="grupo">
+        <span class="etiqueta">Restricciones y gustos (opcional)</span>
+        <div class="toggles" id="toggles-dieta">
+          <button type="button" data-r="sinTacc" aria-pressed="false">Sin TACC</button>
+          <button type="button" data-r="vegetariano" aria-pressed="false">Vegetariano</button>
+          <button type="button" data-r="vegano" aria-pressed="false">Vegano</button>
+        </div>
+        <div class="fila">
+          <label class="campo" for="in-evitar">
+            <span class="oculto-visual">Algo que no te gusta o te da alergia</span>
+            <input id="in-evitar" type="text" placeholder="No me gusta / alergia a…" autocomplete="off">
+          </label>
+          <button type="button" class="btn-icono" id="btn-evitar" aria-label="Agregar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div class="stickers" id="lista-evitar"></div>
+      </div>
+      <p class="vacio" id="perfil-error" role="alert" hidden></p>
+    </form>
+    <div class="pie">
+      <button class="btn btn-principal" id="btn-guardar-perfil" type="submit" form="form-perfil">Listo, a cocinar</button>
+    </div>
+  </section>
+
+  <!-- COCINAR (ingredientes) -->
+  <section class="pantalla" id="p-cocinar" hidden>
+    <header class="cabecera">
+      <div class="fila entre">
+        <span class="chico" id="saludo">Hola, ¿qué cocinamos?</span>
+        <div class="fila">
+          <span class="cupo" id="cupo">10/10 hoy</span>
+          <button class="btn-icono" id="ir-recetas" aria-label="Mis recetas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+          </button>
+          <button class="btn-icono" id="ir-perfil" aria-label="Perfil">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <h1>Contame qué hay en tu cocina</h1>
+      <div class="comidas" id="selector-comida" role="group" aria-label="Comida"></div>
+      <form class="fila" id="form-ingrediente">
+        <label class="campo" for="in-ingrediente">
+          <span class="oculto-visual">Ingrediente</span>
+          <input id="in-ingrediente" type="text" placeholder="Ej: 2 huevos, arroz…" autocomplete="off" enterkeyhint="done">
+        </label>
+        <label class="btn-icono" for="in-foto" style="width:50px;height:50px;border-radius:16px;background:var(--escarlata);color:#FFFFFF" aria-label="Sacar foto de la heladera">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        </label>
+        <input id="in-foto" type="file" accept="image/*" capture="environment" class="oculto-visual">
+      </form>
+    </header>
+    <div class="cuerpo">
+      <div class="stickers" id="lista-tengo"></div>
+      <p class="vacio" id="tengo-vacio">Escribí lo que tenés, sacale una foto a la heladera o tocá una categoría.</p>
+      <h2 class="titulo-seccion">Sumá con un toque</h2>
+      <div class="mosaico" id="mosaico"></div>
+    </div>
+    <div class="pie">
+      <div class="objetivo"><span class="etiqueta">Objetivo</span><b id="objetivo-comida">— kcal</b></div>
+      <button class="btn btn-principal" id="btn-generar">¡Armame algo rico!</button>
+    </div>
+  </section>
+
+  <!-- FOTO -->
+  <section class="pantalla" id="p-foto" hidden>
+    <div class="foto-caja">
+      <button class="btn-icono" id="foto-cerrar" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <img id="foto-img" alt="Foto de la heladera">
+    </div>
+    <div class="cuerpo">
+      <div class="cargando" id="foto-cargando"><span class="ruedita" aria-hidden="true"></span>Mirando la foto…</div>
+      <div id="foto-resultado" hidden>
+        <h1 class="titulo-seccion" id="foto-titulo" style="font-size:26px">Encontré estas cosas</h1>
+        <p class="vacio">Destildá lo que no esté o no quieras usar.</p>
+      </div>
+      <div class="chequeos" id="foto-lista"></div>
+      <p class="banner" id="foto-error" hidden></p>
+    </div>
+    <div class="pie">
+      <button class="btn btn-principal" id="foto-usar" disabled>Usar estos</button>
+    </div>
+  </section>
+
+  <!-- RECETA -->
+  <section class="pantalla" id="p-receta" hidden>
+    <header class="cabecera">
+      <div class="fila entre">
+        <button class="btn-icono" id="receta-volver" aria-label="Volver">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="btn-icono" id="receta-fav" aria-label="Guardar en favoritas" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+        </button>
+      </div>
+      <h1 id="receta-nombre"></h1>
+      <div class="pills" id="receta-pills"></div>
+    </header>
+    <div class="cuerpo">
+      <div class="tip" id="receta-tip">
+        <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg></span>
+        <div class="tip-texto" id="receta-sugerencias"></div>
+      </div>
+      <h2 class="titulo-seccion">Ingredientes</h2>
+      <ul class="lista-ing" id="receta-ingredientes"></ul>
+      <h2 class="titulo-seccion">Paso a paso</h2>
+      <ol class="pasos" id="receta-pasos"></ol>
+      <p class="aviso-origen" id="receta-origen"></p>
+    </div>
+    <div class="pie">
+      <button class="btn" id="receta-otra" style="flex:1">Otra idea</button>
+      <button class="btn btn-principal" id="receta-cocinar" style="flex:1.5">¡A cocinar!</button>
+    </div>
+  </section>
+
+  <!-- RECETARIO (sin IA) -->
+  <section class="pantalla" id="p-recetario" hidden>
+    <header class="cabecera">
+      <button class="btn-icono" id="recetario-volver" aria-label="Volver">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <h1>Del recetario de la casa</h1>
+      <p id="recetario-bajada"></p>
+    </header>
+    <div class="cuerpo">
+      <p class="banner" id="recetario-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#9B1B30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span id="recetario-motivo"></span>
+      </p>
+      <h2 class="titulo-seccion" id="recetario-titulo"></h2>
+      <div class="tarjetas" id="recetario-lista"></div>
+    </div>
+  </section>
+
+  <!-- MIS RECETAS -->
+  <section class="pantalla" id="p-recetas" hidden>
+    <header class="cabecera">
+      <div class="fila entre">
+        <button class="btn-icono" id="recetas-volver" aria-label="Volver">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+      </div>
+      <h1>Mis recetas</h1>
+      <div class="segmentado" id="tabs-recetas">
+        <button type="button" data-tab="favoritas" aria-pressed="true">Favoritas</button>
+        <button type="button" data-tab="historial" aria-pressed="false">Historial</button>
+      </div>
+    </header>
+    <div class="cuerpo">
+      <div class="tarjetas" id="recetas-lista"></div>
+      <p class="vacio" id="recetas-vacio" hidden></p>
+    </div>
+  </section>
+
+  <dialog class="hoja" id="hoja-categoria" aria-labelledby="hoja-titulo">
+    <form method="dialog" class="hoja-interior">
+      <div class="fila entre">
+        <h2 class="titulo-seccion" id="hoja-titulo"></h2>
+        <button class="btn-icono" value="cerrar" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="chequeos" id="hoja-lista"></div>
+      <button class="btn btn-principal" value="listo">Listo</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</div>
+
+<script src="config.js"></script>
+<script src="datos.js"></script>
+<script src="motor.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
